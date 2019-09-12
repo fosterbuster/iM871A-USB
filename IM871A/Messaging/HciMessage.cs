@@ -31,7 +31,7 @@ namespace IM871A.Messaging
         /// <summary>
         /// Gets the payload of this message.
         /// </summary>
-        public List<byte> Payload { get; private set; }
+        public IList<byte> Payload { get; private set; }
 
         /// <summary>
         /// Gets the message identifier.

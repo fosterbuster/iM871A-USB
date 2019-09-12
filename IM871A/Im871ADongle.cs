@@ -6,6 +6,7 @@
 using System;
 using System.IO.Ports;
 using IM871A.DependencyInjection;
+using IM871A.Messaging;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

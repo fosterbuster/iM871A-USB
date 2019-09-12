@@ -16,8 +16,8 @@ namespace IM871A.Messaging.Device
         /// Initializes a new instance of the <see cref="PingResponse"/> class.
         /// </summary>
         /// <param name="payload">the payload.</param>
-        public PingResponse(IList<byte> payload)
-            : base(DeviceManagementMessageIdentifier.PingRequest, payload)
+        public PingResponse(byte[] payload)
+            : base(DeviceManagementMessageIdentifier.PingResponse, payload)
         {
         }
 

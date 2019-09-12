@@ -5,3 +5,4 @@ GetDeviceConfigurationResponse
 SetDeviceConfigurationRequest
 
 
+Find a better strategy than marker interfaces!

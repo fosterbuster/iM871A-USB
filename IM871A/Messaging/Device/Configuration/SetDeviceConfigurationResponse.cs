@@ -16,7 +16,7 @@ namespace IM871A.Messaging.Device.Configuration
         /// Initializes a new instance of the <see cref="SetDeviceConfigurationResponse"/> class.
         /// </summary>
         /// <param name="payload">the payload.</param>
-        public SetDeviceConfigurationResponse(IList<byte> payload)
+        public SetDeviceConfigurationResponse(byte[] payload)
             : base(DeviceManagementMessageIdentifier.SetConfigurationResponse, payload)
         {
         }

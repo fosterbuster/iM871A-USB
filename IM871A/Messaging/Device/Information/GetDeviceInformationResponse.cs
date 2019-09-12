@@ -17,7 +17,7 @@ namespace IM871A.Messaging.Device.Information
         /// Initializes a new instance of the <see cref="GetDeviceInformationResponse"/> class.
         /// </summary>
         /// <param name="payload">the payload.</param>
-        public GetDeviceInformationResponse(IList<byte> payload)
+        public GetDeviceInformationResponse(byte[] payload)
             : base(DeviceManagementMessageIdentifier.GetDeviceInformationResponse, payload)
         {
         }

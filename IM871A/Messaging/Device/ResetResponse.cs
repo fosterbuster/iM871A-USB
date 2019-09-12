@@ -15,8 +15,9 @@ namespace IM871A.Messaging.Device
         /// <summary>
         /// Initializes a new instance of the <see cref="ResetResponse"/> class.
         /// </summary>
-        public ResetResponse(IList<byte> payload)
-            : base(DeviceManagementMessageIdentifier.ResetRequest, payload)
+        /// <param name="payload">the payload.</param>
+        public ResetResponse(byte[] payload)
+            : base(DeviceManagementMessageIdentifier.ResetResponse, payload)
         {
         }
 

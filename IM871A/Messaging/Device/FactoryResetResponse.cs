@@ -16,8 +16,8 @@ namespace IM871A.Messaging.Device
         /// Initializes a new instance of the <see cref="FactoryResetResponse"/> class.
         /// </summary>
         /// <param name="payload">the payload.</param>
-        public FactoryResetResponse(List<byte> payload)
-            : base(DeviceManagementMessageIdentifier.FactoryResetRequest, payload)
+        public FactoryResetResponse(byte[] payload)
+            : base(DeviceManagementMessageIdentifier.FactoryResetResponse, payload)
         {
         }
 
