@@ -1,0 +1,7 @@
+Figure out what is meant with Device Parameter List (might be easier when I have the physical device). Most likely I can use Default Configuration iM871A if i get impatient.
+
+Then implement:
+GetDeviceConfigurationResponse
+SetDeviceConfigurationRequest
+
+

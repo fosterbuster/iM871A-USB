@@ -6,18 +6,18 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IM871A.Messaging.Device.DeviceInformation
+namespace IM871A.Messaging.Device.Information
 {
     /// <summary>
     /// The WM-Bus Firmware provides a service to readout some information elements for identification purposes. This service can be used to identify the local connected device. As a result the device sends a response message which contains information about the device.
     /// </summary>
-    public class GetDeviceInformationResponse : DeviceMessage
+    public class GetDeviceInformationResponse : DeviceMessage, IReceivable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetDeviceInformationResponse"/> class.
         /// </summary>
         /// <param name="payload">the payload.</param>
-        public GetDeviceInformationResponse(List<byte> payload)
+        public GetDeviceInformationResponse(IList<byte> payload)
             : base(DeviceManagementMessageIdentifier.GetDeviceInformationResponse, payload)
         {
         }

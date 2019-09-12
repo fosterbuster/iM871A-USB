@@ -17,7 +17,7 @@ namespace IM871A.Messaging
         /// </summary>
         /// <param name="identifier">the endpoint identifier.</param>
         /// <param name="payload">the payload.</param>
-        protected HciMessage(EndpointIdentifier identifier, List<byte> payload)
+        protected HciMessage(EndpointIdentifier identifier, IList<byte> payload)
         {
             EndpointIdentifier = identifier;
             Payload = payload;

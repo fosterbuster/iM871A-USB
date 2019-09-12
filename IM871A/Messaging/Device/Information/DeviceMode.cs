@@ -1,23 +1,23 @@
-﻿// <copyright file="ModuleType.cs" company="Poul Erik Venø Hansen">
+﻿// <copyright file="DeviceMode.cs" company="Poul Erik Venø Hansen">
 // Copyright (c) Poul Erik Venø Hansen. All rights reserved.
 // Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace IM871A.Messaging.Device.DeviceInformation
+namespace IM871A.Messaging.Device.Information
 {
     /// <summary>
-    /// Identifies the Radio Module.
+    /// Indicates the current Device Mode.
     /// </summary>
-    public enum ModuleType : byte
+    public enum DeviceMode : byte
     {
         /// <summary>
-        /// iM871A
+        /// Other
         /// </summary>
-        IM871A = 0x33,
+        Other = 0x00,
 
         /// <summary>
-        /// iM170A
+        /// Meter
         /// </summary>
-        IM170A = 0x36,
+        Meter = 0x01,
     }
 }

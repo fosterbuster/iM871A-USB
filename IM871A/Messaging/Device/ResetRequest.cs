@@ -8,7 +8,7 @@ namespace IM871A.Messaging.Device
     /// <summary>
     /// This message can be used to reset the WM-Bus Module. The reset will be performed afterapprox. 500ms.
     /// </summary>
-    public class ResetRequest : DeviceMessage
+    public class ResetRequest : DeviceMessage, ITransmittable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ResetRequest"/> class.

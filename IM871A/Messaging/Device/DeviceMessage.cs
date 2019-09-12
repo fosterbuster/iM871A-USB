@@ -19,7 +19,7 @@ namespace IM871A.Messaging.Device
         /// </summary>
         /// <param name="identifier">the device management message identifier.</param>
         /// <param name="payload">the payload.</param>
-        protected DeviceMessage(DeviceManagementMessageIdentifier identifier, List<byte> payload)
+        protected DeviceMessage(DeviceManagementMessageIdentifier identifier, IList<byte> payload)
             : base(EndpointIdentifier.DeviceManagement, payload)
         {
             _identifier = identifier;

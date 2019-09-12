@@ -3,18 +3,21 @@
 // Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
 
+using System.Collections.Generic;
+
 namespace IM871A.Messaging.Device
 {
     /// <summary>
     /// This command is used to check if the connected WM-Bus Module is alive. The sender should expect a Ping Response within a certain time interval.
     /// </summary>
-    public class PingResponse : DeviceMessage
+    public class PingResponse : DeviceMessage, IReceivable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PingResponse"/> class.
         /// </summary>
-        public PingResponse()
-            : base(DeviceManagementMessageIdentifier.PingRequest, null)
+        /// <param name="payload">the payload.</param>
+        public PingResponse(IList<byte> payload)
+            : base(DeviceManagementMessageIdentifier.PingRequest, payload)
         {
         }
 
