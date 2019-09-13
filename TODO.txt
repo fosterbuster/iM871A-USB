@@ -6,3 +6,7 @@ SetDeviceConfigurationRequest
 
 
 Find a better strategy than marker interfaces!
+
+go through xml doc for classes. Might suffer from copypaste-syndrome.
+
+some how find a way to share extension methods across projects (need wmbus extensions for tostrings). Don't really want to use nuget.. Lets see.
