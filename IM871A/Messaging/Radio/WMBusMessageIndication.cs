@@ -3,6 +3,8 @@
 // Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
 
+using System.Linq;
+
 namespace IM871A.Messaging.Radio
 {
     /// <summary>
@@ -21,10 +23,20 @@ namespace IM871A.Messaging.Radio
         {
         }
 
+        /// <summary>
+        /// Gets the WMBus part of the payload.
+        /// </summary>
+        public byte[] WMBusPayload => GetWMBusPayload();
+
         /// <inheritdoc/>
         public override string ToString()
         {
-            return "WMBusMessageIndication Response.";
+            return "WMBus Message Indication Response.";
+        }
+
+        private byte[] GetWMBusPayload()
+        {
+            return Payload.Skip(2).ToArray();
         }
     }
 }

@@ -25,6 +25,7 @@ namespace Example
 
             logger.LogDebug("Starting WiMod.");
             Im871ADongle modem = serviceCollection.GetService<Im871ADongle>();
+            await modem.TransmitMessage(null);
             Console.WriteLine();
         }
     }
