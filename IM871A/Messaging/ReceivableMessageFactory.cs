@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using IM871A.Utilities.Extensions;
 
 namespace IM871A.Messaging
 {
@@ -17,7 +18,7 @@ namespace IM871A.Messaging
 
         public static IReceivable Create(IList<byte> payload)
         {
-            if (_knownSubTypes.TryGetValue((endpointIdentifier: payload[0], messageIdentifier: payload[1]), out Type type))
+            if (_knownSubTypes.TryGetValue((endpointIdentifier: (byte)payload[0].LowNibble(), messageIdentifier: payload[1]), out Type type))
             {
                 return (IReceivable)Activator.CreateInstance(type, payload);
             }

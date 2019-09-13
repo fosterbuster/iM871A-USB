@@ -81,6 +81,11 @@ namespace IM871A.Utilities.Extensions
             return b & 0b00001111;
         }
 
+        public static byte ConcatBytes(byte highNibble, byte lowNibble)
+        {
+            return (byte)((highNibble << 4) | lowNibble);
+        }
+
         /// <summary>
         /// Gets the bit at the <paramref name="position"/>.
         /// </summary>
