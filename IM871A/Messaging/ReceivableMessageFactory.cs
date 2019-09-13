@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace IM871A.Messaging
 {
@@ -14,10 +13,7 @@ namespace IM871A.Messaging
     {
         private static readonly Dictionary<(byte endpointIdentifier, byte messageIdentifier), Type> _knownSubTypes = new Dictionary<(byte, byte), Type>();
 
-        static ReceivableMessageFactory()
-        {
-            RegisterAllRxHciMessageTypes();
-        }
+        static ReceivableMessageFactory() => RegisterAllRxHciMessageTypes();
 
         public static IReceivable Create(IList<byte> payload)
         {
@@ -32,16 +28,13 @@ namespace IM871A.Messaging
         private static void RegisterAllRxHciMessageTypes()
         {
             Type receivableInterface = typeof(IReceivable);
-            foreach (Assembly domainAssembly in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes()
+                                  .Where(type => !type.IsAbstract && receivableInterface.IsAssignableFrom(type)).Select(type => type)))
             {
-                foreach (Type type in domainAssembly.GetTypes()
-                    .Where(type => !type.IsAbstract && receivableInterface.IsAssignableFrom(type)))
-                {
-                    var instance = (IReceivable)Activator.CreateInstance(type, new byte[] { });
-                    var endpointValue = (byte)type.GetProperty("EndpointIdentifier").GetValue(instance);
-                    var messageValue = (byte)type.GetProperty("MessageIdentifier").GetValue(instance);
-                    _knownSubTypes.Add((endpointIdentifier: endpointValue, messageIdentifier: messageValue), type);
-                }
+                var instance = (IReceivable)Activator.CreateInstance(type, new byte[] { });
+                var endpointValue = (byte)type.GetProperty("EndpointIdentifier").GetValue(instance);
+                var messageValue = (byte)type.GetProperty("MessageIdentifier").GetValue(instance);
+                _knownSubTypes.Add((endpointIdentifier: endpointValue, messageIdentifier: messageValue), type);
             }
         }
     }
