@@ -10,5 +10,29 @@ namespace IM871A.Messaging.Radio
     /// </summary>
     public enum RadioLinkMessageIdentifier : byte
     {
+        /// <summary>
+        /// Send WM-Bus message request.
+        /// </summary>
+        WMBusMessageRequest = 0x01,
+
+        /// <summary>
+        /// Send WM-Bus message response.
+        /// </summary>
+        WMBusMessageRespone = 0x02,
+
+        /// <summary>
+        /// WM-Bus message indication.
+        /// </summary>
+        WMBusMessageIndication = 0x03,
+
+        /// <summary>
+        /// Send data as WM-Bus message.
+        /// </summary>
+        MessageDataRequest = 0x04,
+
+        /// <summary>
+        /// Send data response.
+        /// </summary>
+        MessageDataResponse = 0x05,
     }
 }

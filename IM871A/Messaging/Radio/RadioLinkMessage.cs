@@ -19,7 +19,7 @@ namespace IM871A.Messaging.Radio
         /// </summary>
         /// <param name="identifier">the radio link message identifier.</param>
         /// <param name="payload">the payload.</param>
-        protected RadioLinkMessage(RadioLinkMessageIdentifier identifier, List<byte> payload)
+        protected RadioLinkMessage(RadioLinkMessageIdentifier identifier, IList<byte> payload)
             : base(EndpointIdentifier.RadioLink, payload)
         {
             _identifier = identifier;
