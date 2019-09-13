@@ -31,11 +31,11 @@ namespace IM871A.Messaging
 
         private static void RegisterAllRxHciMessageTypes()
         {
-            Type receivableBaseType = typeof(IReceivable);
+            Type receivableInterface = typeof(IReceivable);
             foreach (Assembly domainAssembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 foreach (Type type in domainAssembly.GetTypes()
-                    .Where(type => !type.IsAbstract && receivableBaseType.IsAssignableFrom(type)))
+                    .Where(type => !type.IsAbstract && receivableInterface.IsAssignableFrom(type)))
                 {
                     var instance = (IReceivable)Activator.CreateInstance(type, new byte[] { });
                     var endpointValue = (byte)type.GetProperty("EndpointIdentifier").GetValue(instance);
