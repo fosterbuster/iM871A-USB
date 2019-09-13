@@ -5,7 +5,14 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{401740BA-B2D5-4DB5-8AFA-2BE72AEB800A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IM871A", "IM871A\IM871A.csproj", "{B3308E5D-2F32-46DA-BAA6-FDB590A42F3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IM871A", "IM871A\IM871A.csproj", "{B3308E5D-2F32-46DA-BAA6-FDB590A42F3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38D5E63A-2559-4779-909A-2FB43B414BAF}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+		TODO.txt = TODO.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

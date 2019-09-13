@@ -1,6 +1,6 @@
 ﻿// <copyright file="HciMessage.cs" company="Poul Erik Venø Hansen">
 // Copyright (c) Poul Erik Venø Hansen. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
 
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace IM871A.Messaging
         /// </summary>
         /// <param name="identifier">the endpoint identifier.</param>
         /// <param name="payload">the payload.</param>
-        protected HciMessage(EndpointIdentifier identifier, List<byte> payload)
+        protected HciMessage(EndpointIdentifier identifier, IList<byte> payload)
         {
             EndpointIdentifier = identifier;
             Payload = payload;
@@ -31,7 +31,7 @@ namespace IM871A.Messaging
         /// <summary>
         /// Gets the payload of this message.
         /// </summary>
-        public List<byte> Payload { get; private set; }
+        public IList<byte> Payload { get; private set; }
 
         /// <summary>
         /// Gets the message identifier.
