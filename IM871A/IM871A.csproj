@@ -2,8 +2,26 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	<RootNamespace>IM871A</RootNamespace>
+	<RootNamespace>FosterBuster.IM871A</RootNamespace>
+     <Authors>Poul Erik Venø Hansen</Authors>
+     <PackageId>FosterBuster.IM871A</PackageId>
+     <Title>IM871A-USB</Title>
+     <Description>.NET Library for communicating with the WiMOD iM871A USB (and the chip).</Description>
+     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+     <Version>1.0.0.0</Version>
+     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+     <PackageProjectUrl>https://github.com/fosterbuster/iM871A-USB</PackageProjectUrl>
+     <RepositoryUrl>https://github.com/fosterbuster/iM871A-USB</RepositoryUrl>
+     <Copyright>Poul Erik Venø Hansen</Copyright>
   </PropertyGroup>
+
+  <PropertyGroup>
+     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+     <None Include="..\LICENSE" Pack="true" PackagePath=""/>
+  </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <CodeAnalysisRuleSet>pevh.ruleset</CodeAnalysisRuleSet>
@@ -23,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FosterBuster.Extensions" Version="1.0.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />

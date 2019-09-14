@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace IM871A.Messaging.Device
+namespace FosterBuster.IM871A.Messaging.Device
 {
     /// <summary>
     /// Baseclass for messages sent to the device management endpoint.

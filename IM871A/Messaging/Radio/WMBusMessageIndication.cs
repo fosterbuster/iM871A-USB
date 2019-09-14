@@ -5,7 +5,7 @@
 
 using System.Linq;
 
-namespace IM871A.Messaging.Radio
+namespace FosterBuster.IM871A.Messaging.Radio
 {
     /// <summary>
     /// Indication.

@@ -3,7 +3,7 @@
 // Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace IM871A.Messaging.Device.Encryption
+namespace FosterBuster.IM871A.Messaging.Device.Encryption
 {
     /// <summary>
     /// This message can be used to enable the automatic AES-128 encryption. This message allows to change the AES encryption state directly and to save it optionally in the non-volatile flash memory.

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FosterBuster.IM871A;
+using FosterBuster.IM871A.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using IM871A.DependencyInjection;
-using IM871A;
 
 namespace Example
 {
@@ -11,7 +11,7 @@ namespace Example
     {
         internal static async Task Main( string[] args )
         {
-            ServiceProvider serviceCollection = new ServiceCollection().AddIm871ADongle(x =>
+            ServiceProvider serviceCollection = new ServiceCollection().AddIM871ADongle(x =>
             {
                 x.PortName = "USB";
             })
@@ -24,7 +24,7 @@ namespace Example
             ILogger<Program> logger = serviceCollection.GetService<ILoggerFactory>().CreateLogger<Program>();
 
             logger.LogDebug("Starting WiMod.");
-            Im871ADongle modem = serviceCollection.GetService<Im871ADongle>();
+            IM871ADongle modem = serviceCollection.GetService<IM871ADongle>();
             await modem.TransmitMessage(null);
             Console.WriteLine();
         }

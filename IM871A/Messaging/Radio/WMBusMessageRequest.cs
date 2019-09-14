@@ -4,9 +4,9 @@
 // </copyright>
 
 using System.Collections.Generic;
-using IM871A.Utilities.Extensions;
+using FosterBuster.Extensions;
 
-namespace IM871A.Messaging.Radio
+namespace FosterBuster.IM871A.Messaging.Radio
 {
     /// <summary>
     /// Request.

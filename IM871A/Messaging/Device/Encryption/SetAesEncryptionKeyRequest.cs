@@ -4,9 +4,9 @@
 // </copyright>
 
 using System.Collections.Generic;
-using IM871A.Utilities.Extensions;
+using FosterBuster.Extensions;
 
-namespace IM871A.Messaging.Device.Encryption
+namespace FosterBuster.IM871A.Messaging.Device.Encryption
 {
     /// <summary>
     /// This function can be used to change the AES-128 encryption key which is used for packet transmission. The function allows to change the encryption key directly and to save it optionallyin the non-volatile flash memory.

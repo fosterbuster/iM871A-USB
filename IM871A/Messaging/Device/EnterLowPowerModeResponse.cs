@@ -3,7 +3,7 @@
 // Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace IM871A.Messaging.Device
+namespace FosterBuster.IM871A.Messaging.Device
 {
     /// <summary>
     /// In addition to the automatic power saving feature the firmware provides a command to enter the low power mode.The LPM mode will be left with every new HCI message.

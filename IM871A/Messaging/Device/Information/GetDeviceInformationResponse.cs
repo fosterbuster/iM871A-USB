@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IM871A.Messaging.Device.Information
+namespace FosterBuster.IM871A.Messaging.Device.Information
 {
     /// <summary>
     /// The WM-Bus Firmware provides a service to readout some information elements for identification purposes. This service can be used to identify the local connected device. As a result the device sends a response message which contains information about the device.

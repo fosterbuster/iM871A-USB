@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace IM871A.Messaging.Device.Configuration
+namespace FosterBuster.IM871A.Messaging.Device.Configuration
 {
     /// <summary>
     /// This message acknowledges the Get Config Request message.

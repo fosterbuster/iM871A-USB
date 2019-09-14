@@ -6,7 +6,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace IM871A.DependencyInjection
+namespace FosterBuster.IM871A.DependencyInjection
 {
     /// <summary>
     /// Extension methods for DI.
@@ -19,10 +19,10 @@ namespace IM871A.DependencyInjection
         /// <param name="services">the service collection to be modified.</param>
         /// <param name="setupAction">an action for hooking into.</param>
         /// <returns>a modified service collection.</returns>
-        public static IServiceCollection AddIm871ADongle(this IServiceCollection services, Action<ConfigurationOptions> setupAction)
+        public static IServiceCollection AddIM871ADongle(this IServiceCollection services, Action<ConfigurationOptions> setupAction)
         {
             services.Configure(setupAction);
-            services.AddSingleton<Im871ADongle>();
+            services.AddSingleton<IM871ADongle>();
             return services;
         }
     }

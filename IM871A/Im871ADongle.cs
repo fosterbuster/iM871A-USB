@@ -1,4 +1,4 @@
-﻿// <copyright file="Im871ADongle.cs" company="Poul Erik Venø Hansen">
+﻿// <copyright file="IM871ADongle.cs" company="Poul Erik Venø Hansen">
 // Copyright (c) Poul Erik Venø Hansen. All rights reserved.
 // Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
@@ -7,36 +7,35 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Ports;
-using System.Text;
 using System.Threading.Tasks;
-using IM871A.DependencyInjection;
-using IM871A.Messaging;
-using IM871A.Utilities.Extensions;
+using FosterBuster.Extensions;
+using FosterBuster.IM871A.DependencyInjection;
+using FosterBuster.IM871A.Messaging;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace IM871A
+namespace FosterBuster.IM871A
 {
     /// <summary>
     /// Represents a physical iMST iM871A Dongle.
     /// </summary>
-    public class Im871ADongle
+    public class IM871ADongle
     {
         private const byte StartOfFrame = 0xA5;
 
-        private readonly ILogger<Im871ADongle> _logger;
+        private readonly ILogger<IM871ADongle> _logger;
         private readonly SerialPort _serialConnection;
 
         private Func<HciMessage, Task> _onData;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Im871ADongle"/> class.
+        /// Initializes a new instance of the <see cref="IM871ADongle"/> class.
         /// </summary>
         /// <param name="options">the options.</param>
         /// <param name="loggerFactory">a logger factory.</param>
-        public Im871ADongle(IOptions<ConfigurationOptions> options, ILoggerFactory loggerFactory)
+        public IM871ADongle(IOptions<ConfigurationOptions> options, ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory.CreateLogger<Im871ADongle>();
+            _logger = loggerFactory.CreateLogger<IM871ADongle>();
 
             ConfigurationOptions opts = options.Value;
 
@@ -82,7 +81,7 @@ namespace IM871A
             byte controlField = 0b0000_0000;
             var endpointId = (byte)message.EndpointIdentifier;
 
-            var combinedControlFieldAndEndPointId = BitwiseExtensions.ConcatBytes(controlField, endpointId);
+            var combinedControlFieldAndEndPointId = (byte)((controlField << 4) | endpointId);
 
             var bytes = new List<byte>() { StartOfFrame, combinedControlFieldAndEndPointId, message.MessageIdentifier };
 
@@ -112,8 +111,8 @@ namespace IM871A
 
             if (readBytesCount > 0)
             {
-                var controlField = (byte)buffer[0].HighNibble();
-                var endpointId = (byte)buffer[0].LowNibble();
+                var controlField = buffer[0].GetHighNibble();
+                var endpointId = buffer[0].GetLowNibble();
 
                 var messageId = buffer[1];
                 var lengthField = buffer[2];
@@ -147,7 +146,8 @@ namespace IM871A
                     Buffer.BlockCopy(buffer, 3, payload, 2, lengthField);
                 }
 
-                payload[0] = endpointId;
+                //FIXME: remove cast when getting updated extensions
+                payload[0] = (byte)endpointId;
                 payload[1] = messageId;
 
                 await _onData((HciMessage)ReceivableMessageFactory.Create(payload));

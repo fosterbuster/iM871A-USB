@@ -3,7 +3,7 @@
 // Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace IM871A
+namespace FosterBuster.IM871A
 {
     /// <summary>
     /// Marker interface for denoting that a message is TX.
