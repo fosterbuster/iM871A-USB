@@ -1,5 +1,5 @@
 # iM871A-USB
-.NET Client for communication with the iM871A-USB.
+.NET Library for communicating with the WiMOD iM871A USB (and the chip).
 
 ## Notice.
 This is a WIP, please do not consider it done. If using .NET Core 3 - it should work on a raspberry pi when done.
