@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace IM871A.Messaging.Device.OperationMode
+namespace FosterBuster.IM871A.Messaging.Device.OperationMode
 {
     /// <summary>
     /// This message sets the next System Operation Mode and performs a firmware reset.

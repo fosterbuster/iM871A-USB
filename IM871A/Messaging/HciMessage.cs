@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace IM871A.Messaging
+namespace FosterBuster.IM871A.Messaging
 {
     /// <summary>
     /// Baseclass for all messages.

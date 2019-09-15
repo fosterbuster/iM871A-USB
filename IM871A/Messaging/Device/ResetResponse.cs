@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace IM871A.Messaging.Device
+namespace FosterBuster.IM871A.Messaging.Device
 {
     /// <summary>
     /// This message can be used to reset the WM-Bus Module. The reset will be performed after approx. 500ms.

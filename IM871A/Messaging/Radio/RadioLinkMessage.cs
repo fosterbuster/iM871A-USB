@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace IM871A.Messaging.Radio
+namespace FosterBuster.IM871A.Messaging.Radio
 {
     /// <summary>
     /// Baseclass for messages sent to the radio link endpoint.

@@ -5,9 +5,9 @@
 
 using System;
 using System.Linq;
-using IM871A.Utilities.Extensions;
+using FosterBuster.Extensions;
 
-namespace IM871A.Messaging.Device
+namespace FosterBuster.IM871A.Messaging.Device
 {
     /// <summary>
     /// This message is used to read the system status.

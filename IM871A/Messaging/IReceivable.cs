@@ -3,7 +3,7 @@
 // Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace IM871A.Messaging
+namespace FosterBuster.IM871A.Messaging
 {
     /// <summary>
     /// Marker interface for denoting that a message is RX.

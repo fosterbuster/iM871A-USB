@@ -5,9 +5,9 @@
 
 using System;
 using System.Collections.Generic;
-using IM871A.Utilities.Extensions;
+using FosterBuster.Extensions;
 
-namespace IM871A.Messaging.Device.Decryption
+namespace FosterBuster.IM871A.Messaging.Device.Decryption
 {
     /// <summary>
     /// This command is used to check if the connected WM-Bus Module is alive. The sender should expect a SetDecryptionKeyRequest Response within a certain time interval.
