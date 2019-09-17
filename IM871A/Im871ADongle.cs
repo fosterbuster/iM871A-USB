@@ -78,21 +78,29 @@ namespace FosterBuster.IM871A
         private async Task TransmitMessageInternalAsync(HciMessage message)
         {
             // TODO: give CRC16? Already have the calculations available through stuff made for the Iu880B.
-            byte controlField = 0b0000_0000;
+            byte controlField = 0b1000;
             var endpointId = (byte)message.EndpointIdentifier;
 
             var combinedControlFieldAndEndPointId = (byte)((controlField << 4) | endpointId);
 
-            var bytes = new List<byte>() { StartOfFrame, combinedControlFieldAndEndPointId, message.MessageIdentifier };
+            var bytes = new List<byte>() { combinedControlFieldAndEndPointId, message.MessageIdentifier };
 
             IList<byte> payload = message.Payload;
 
-            if (payload.Count > 0)
+            if (payload?.Count > 0)
             {
                 var length = checked((byte)payload.Count);
                 bytes.Add(length);
                 bytes.AddRange(payload);
             }
+            else
+            {
+                bytes.Add(0x00);
+            }
+
+            bytes.AppendCrc();
+            bytes.Insert(0, StartOfFrame);
+            Console.WriteLine(bytes.ToHexString());
 
             await _serialConnection.BaseStream.WriteAsync(bytes.ToArray(), 0, bytes.Count);
         }
@@ -107,48 +115,57 @@ namespace FosterBuster.IM871A
             Stream stream = _serialConnection.BaseStream;
 
             var buffer = new byte[512];
-            var readBytesCount = await stream.ReadAsync(buffer, 0, 3);
+            var readBytesCount = await stream.ReadAsync(buffer, 0, 4);
 
             if (readBytesCount > 0)
             {
-                var controlField = buffer[0].GetHighNibble();
-                var endpointId = buffer[0].GetLowNibble();
+                var controlField = buffer[1].GetHighNibble();
+                var endpointId = buffer[1].GetLowNibble();
 
-                var messageId = buffer[1];
-                var lengthField = buffer[2];
+                var messageId = buffer[2];
+                var length = buffer[3];
                 var payload = new byte[2];
 
-                if (lengthField > 0)
+                var timestampPresent = controlField.GetBit(2);
+                var rssiPresent = controlField.GetBit(3);
+                var crcPresent = controlField.GetBit(4);
+
+                if (timestampPresent)
                 {
-                    var readLength = lengthField;
-                    var timestampPresent = controlField.GetBit(2);
-                    var rssiPresent = controlField.GetBit(3);
-                    var crcPresent = controlField.GetBit(4);
-                    if (timestampPresent)
-                    {
-                        readLength += 4; // 32bit
-                    }
-
-                    if (rssiPresent)
-                    {
-                        readLength += 1; // 8bit
-                    }
-
-                    if (crcPresent)
-                    {
-                        readLength += 2; // 16bit
-                    }
-
-                    await stream.ReadAsync(buffer, 0, readLength);
-
-                    // TODO: Handle optional fields
-                    payload = new byte[lengthField + 2];
-                    Buffer.BlockCopy(buffer, 3, payload, 2, lengthField);
+                    length += 4; // 32bit
                 }
 
-                //FIXME: remove cast when getting updated extensions
+                if (rssiPresent)
+                {
+                    length += 1; // 8bit
+                }
+
+                if (crcPresent)
+                {
+                    length += 2; // 16bit
+                }
+
+                if (length > 0)
+                {
+                    await stream.ReadAsync(buffer, 0, length);
+
+                    // +2 because we need to fit the endpoint id and message id in to it.
+                    payload = new byte[length + 2];
+                    Buffer.BlockCopy(buffer, 3, payload, 2, length);
+                }
+
                 payload[0] = (byte)endpointId;
                 payload[1] = messageId;
+
+                if (crcPresent)
+                {
+                    var valid = payload.ValidateCrc();
+
+                    if (!valid)
+                    {
+                        throw new InvalidDataException("Wrong CRC16 checksum");
+                    }
+                }
 
                 await _onData((HciMessage)ReceivableMessageFactory.Create(payload));
             }
