@@ -38,7 +38,7 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
         /// </summary>
         /// <param name="payload">the payload.</param>
         public GetDeviceConfigurationResponse(byte[] payload)
-            : base(DeviceManagementMessageIdentifier.GetDeviceInformationResponse, payload)
+            : base(DeviceManagementMessageIdentifier.GetConfigurationResponse, payload)
         {
             if (payload.Length > 0)
             {
@@ -49,17 +49,17 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
         /// <summary>
         /// Gets the device  mode.
         /// </summary>
-        public DeviceMode? DeviceMode => GetFromPayload<DeviceMode?>(_deviceModeIndex);
+        public DeviceMode? DeviceMode => GetFromPayload<DeviceMode>(_deviceModeIndex);
 
         /// <summary>
         /// Gets the radio mode.
         /// </summary>
-        public RadioMode? RadioMode => GetFromPayload<RadioMode?>(_radioModeIndex);
+        public RadioMode? RadioMode => GetFromPayload<RadioMode>(_radioModeIndex);
 
         /// <summary>
         /// Gets the C Field, used in WM-Bus Radio Messages.
         /// </summary>
-        public byte? WmBusCField => GetFromPayload<byte?>(_wmBusCFieldIndex);
+        public byte? WmBusCField => GetFromPayload<byte>(_wmBusCFieldIndex);
 
         /// <summary>
         /// Gets the Manufacturer ID, used in WM-Bus Radio Messages. (Readonly for USB).
@@ -74,17 +74,17 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
         /// <summary>
         /// Gets the Version, used in WM-Bus Radio Messages (Readonly for USB).
         /// </summary>
-        public byte? WmBusVersion => GetFromPayload<byte?>(_wmBusVersionIndex);
+        public byte? WmBusVersion => GetFromPayload<byte>(_wmBusVersionIndex);
 
         /// <summary>
         /// Gets the Device Type, used in WM-Bus Radio Messages (Readonly for USB).
         /// </summary>
-        public byte? WmBusDeviceType => GetFromPayload<byte?>(_wmbusDeviceTypeIndex);
+        public byte? WmBusDeviceType => GetFromPayload<byte>(_wmbusDeviceTypeIndex);
 
         /// <summary>
         /// Gets the radio channel.
         /// </summary>
-        public RadioChannel? RadioChannel => GetFromPayload<RadioChannel?>(_radioChannelIndex);
+        public RadioChannel? RadioChannel => GetFromPayload<RadioChannel>(_radioChannelIndex);
 
         /// <summary>
         /// Gets the radio power level in dBm.
@@ -146,12 +146,6 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
             }
 
             return null;
-        }
-
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return "Set Device Configuration Response";
         }
 
         private void CalculateIndexes()
@@ -310,6 +304,11 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
                 default:
                     return null;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{{{nameof(DeviceMode)}={DeviceMode}, {nameof(RadioMode)}={RadioMode}, {nameof(WmBusCField)}={WmBusCField}, {nameof(WmBusManufacturerId)}={WmBusManufacturerId}, {nameof(WmBusDeviceId)}={WmBusDeviceId}, {nameof(WmBusVersion)}={WmBusVersion}, {nameof(WmBusDeviceType)}={WmBusDeviceType}, {nameof(RadioChannel)}={RadioChannel}, {nameof(RadioPowerLevel)}={RadioPowerLevel}, {nameof(RadioReceiveWindow)}={RadioReceiveWindow}, {nameof(AutomaticPowerSaving)}={AutomaticPowerSaving}, {nameof(AutomaticRssiAttachment)}={AutomaticRssiAttachment}, {nameof(AutoReceiveTimestampAttachment)}={AutoReceiveTimestampAttachment}, {nameof(RtcControl)}={RtcControl}, {nameof(MessageIdentifier)}={MessageIdentifier}, {nameof(EndpointIdentifier)}={EndpointIdentifier}, {nameof(Payload)}={Payload}, {nameof(MessageIdentifier)}={MessageIdentifier}}}";
         }
     }
 }

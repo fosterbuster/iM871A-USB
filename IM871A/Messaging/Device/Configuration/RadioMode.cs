@@ -5,7 +5,7 @@
 
 namespace FosterBuster.IM871A.Messaging.Device.Configuration
 {
-    public enum RadioMode
+    public enum RadioMode : byte
     {
     }
 }

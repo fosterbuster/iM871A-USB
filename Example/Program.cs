@@ -31,7 +31,7 @@ namespace Example
 
             IM871ADongle modem = serviceCollection.GetService<IM871ADongle>();
             modem.AddReceiver(Test);
-            await modem.TransmitMessage(new GetDeviceInformationRequest());
+            await modem.TransmitMessage(new GetDeviceConfigurationRequest());
             Console.ReadKey();
         }
 
