@@ -21,6 +21,9 @@ namespace FosterBuster.IM871A
     /// </summary>
     public class IM871ADongle
     {
+        
+
+
         private const byte StartOfFrame = 0xA5;
 
         private readonly ILogger<IM871ADongle> _logger;
@@ -67,6 +70,11 @@ namespace FosterBuster.IM871A
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task TransmitMessage(HciMessage message)
         {
+            if (message is null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
             if (!(message is ITransmittable))
             {
                 throw new ArgumentException($"{message} not marked as {nameof(ITransmittable)}");

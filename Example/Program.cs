@@ -16,7 +16,6 @@ namespace Example
     {
         internal static async Task Main(string[] args)
         {
-
             ServiceProvider serviceCollection = new ServiceCollection().AddIM871ADongle(x =>
             {
                 x.PortName = "COM4";
