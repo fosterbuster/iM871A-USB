@@ -22,7 +22,7 @@ namespace FosterBuster.IM871A.Messaging.Device.OperationMode
         /// <summary>
         /// Gets the current System Operation Mode.
         /// </summary>
-        public SystemOperationMode SystemOperationMode => (SystemOperationMode)Payload[2];
+        public SystemOperationMode SystemOperationMode => (SystemOperationMode)Payload[3];
 
         /// <inheritdoc/>
         public override string ToString()

@@ -25,7 +25,7 @@ namespace FosterBuster.IM871A.Messaging.Radio
         /// <summary>
         /// Gets a value indicating whether or not the <see cref="WMBusMessageRequest"/> failed.
         /// </summary>
-        public bool Failed => Payload[2] == 0x00;
+        public bool Failed => Payload[3] == 0x00;
 
         /// <inheritdoc/>
         public override string ToString()

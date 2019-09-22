@@ -36,7 +36,7 @@ namespace FosterBuster.IM871A.Messaging.Radio
 
         private byte[] GetWMBusPayload()
         {
-            return Payload.Skip(2).ToArray();
+            return Payload.Skip(3).ToArray();
         }
     }
 }

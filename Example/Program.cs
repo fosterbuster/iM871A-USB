@@ -5,6 +5,8 @@ using FosterBuster.IM871A;
 using FosterBuster.IM871A.DependencyInjection;
 using FosterBuster.IM871A.Messaging;
 using FosterBuster.IM871A.Messaging.Device;
+using FosterBuster.IM871A.Messaging.Device.Configuration;
+using FosterBuster.IM871A.Messaging.Device.Information;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -14,9 +16,6 @@ namespace Example
     {
         internal static async Task Main(string[] args)
         {
-            var bytes = new byte[] { 0x81, 0x02, 0x00, 0x4C, 0xA3 };
-
-            var hmm = bytes.ValidateCrc();
 
             ServiceProvider serviceCollection = new ServiceCollection().AddIM871ADongle(x =>
             {
@@ -31,8 +30,8 @@ namespace Example
             ILogger<Program> logger = serviceCollection.GetService<ILoggerFactory>().CreateLogger<Program>();
 
             IM871ADongle modem = serviceCollection.GetService<IM871ADongle>();
-            modem.SetReceiver(Test);
-            await modem.TransmitMessage(new PingRequest());
+            modem.AddReceiver(Test);
+            await modem.TransmitMessage(new GetDeviceInformationRequest());
             Console.ReadKey();
         }
 
