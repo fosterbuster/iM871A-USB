@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using FosterBuster.IM871A.Messaging.Device.Information;
 
 namespace FosterBuster.IM871A.Messaging.Device.Configuration

@@ -13,7 +13,10 @@ namespace FosterBuster.IM871A.Messaging
     {
         private static readonly Dictionary<(byte endpointIdentifier, byte messageIdentifier), Type> _knownSubTypes = new Dictionary<(byte, byte), Type>();
 
-        static ReceivableMessageFactory() => RegisterAllRxHciMessageTypes();
+        static ReceivableMessageFactory()
+        {
+            RegisterAllRxHciMessageTypes();
+        }
 
         public static IReceivable Create(IList<byte> payload)
         {

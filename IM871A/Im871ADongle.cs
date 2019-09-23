@@ -178,6 +178,7 @@ namespace FosterBuster.IM871A
 
                 // Strip controlfield bits.
                 receivedBytes[0] = receivedBytes[0].GetLowNibble();
+
                 if (_onData is null)
                 {
                     _logger.LogWarning("No receivers have been added. Consider calling AddReceiver. Discarding message.");
