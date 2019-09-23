@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using FosterBuster.Extensions;
 using FosterBuster.IM871A;
 using FosterBuster.IM871A.DependencyInjection;
 using FosterBuster.IM871A.Messaging;
-using FosterBuster.IM871A.Messaging.Device;
 using FosterBuster.IM871A.Messaging.Device.Configuration;
-using FosterBuster.IM871A.Messaging.Device.Information;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -34,7 +31,7 @@ namespace Example
             Console.ReadKey();
         }
 
-        private async static Task Test(HciMessage arg)
+        private static async Task Test(HciMessage arg)
         {
             Console.WriteLine(arg);
             //Console.WriteLine("got it!");

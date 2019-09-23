@@ -124,6 +124,11 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
         /// </summary>
         public bool? RtcControl => GetBoolOrNull(_rtcControlIndex);
 
+        public override string ToString()
+        {
+            return $"{{{nameof(DeviceMode)}={DeviceMode}, {nameof(RadioMode)}={RadioMode}, {nameof(WmBusCField)}={WmBusCField}, {nameof(WmBusManufacturerId)}={WmBusManufacturerId}, {nameof(WmBusDeviceId)}={WmBusDeviceId}, {nameof(WmBusVersion)}={WmBusVersion}, {nameof(WmBusDeviceType)}={WmBusDeviceType}, {nameof(RadioChannel)}={RadioChannel}, {nameof(RadioPowerLevel)}={RadioPowerLevel}, {nameof(RadioReceiveWindow)}={RadioReceiveWindow}, {nameof(AutomaticPowerSaving)}={AutomaticPowerSaving}, {nameof(AutomaticRssiAttachment)}={AutomaticRssiAttachment}, {nameof(AutoReceiveTimestampAttachment)}={AutoReceiveTimestampAttachment}, {nameof(RtcControl)}={RtcControl}, {nameof(MessageIdentifier)}={MessageIdentifier}, {nameof(EndpointIdentifier)}={EndpointIdentifier}, {nameof(Payload)}={Payload}, {nameof(MessageIdentifier)}={MessageIdentifier}}}";
+        }
+
         private bool? GetBoolOrNull(int index)
         {
             var val = GetFromPayload<byte?>(index);
@@ -150,7 +155,7 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
 
         private void CalculateIndexes()
         {
-            int cursor = 4;
+            var cursor = 4;
             var iiflag1 = Payload[3];
 
             var deviceModePresent = iiflag1.GetBit(0);
@@ -303,11 +308,6 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
                 7 => 14,
                 _ => throw new Exception("Unknown Radio Power Level"),
             };
-        }
-
-        public override string ToString()
-        {
-            return $"{{{nameof(DeviceMode)}={DeviceMode}, {nameof(RadioMode)}={RadioMode}, {nameof(WmBusCField)}={WmBusCField}, {nameof(WmBusManufacturerId)}={WmBusManufacturerId}, {nameof(WmBusDeviceId)}={WmBusDeviceId}, {nameof(WmBusVersion)}={WmBusVersion}, {nameof(WmBusDeviceType)}={WmBusDeviceType}, {nameof(RadioChannel)}={RadioChannel}, {nameof(RadioPowerLevel)}={RadioPowerLevel}, {nameof(RadioReceiveWindow)}={RadioReceiveWindow}, {nameof(AutomaticPowerSaving)}={AutomaticPowerSaving}, {nameof(AutomaticRssiAttachment)}={AutomaticRssiAttachment}, {nameof(AutoReceiveTimestampAttachment)}={AutoReceiveTimestampAttachment}, {nameof(RtcControl)}={RtcControl}, {nameof(MessageIdentifier)}={MessageIdentifier}, {nameof(EndpointIdentifier)}={EndpointIdentifier}, {nameof(Payload)}={Payload}, {nameof(MessageIdentifier)}={MessageIdentifier}}}";
         }
     }
 }

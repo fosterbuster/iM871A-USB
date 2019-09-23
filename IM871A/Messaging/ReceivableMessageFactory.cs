@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FosterBuster.Extensions;
 
 namespace FosterBuster.IM871A.Messaging
 {

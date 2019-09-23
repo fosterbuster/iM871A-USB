@@ -13,7 +13,6 @@ namespace FosterBuster.IM871A.Messaging.Device.Encryption
     /// </summary>
     public class SetAesEncryptionKeyRequest : DeviceMessage, ITransmittable
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SetAesEncryptionKeyRequest"/> class.
         /// </summary>

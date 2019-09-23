@@ -57,6 +57,7 @@ namespace FosterBuster.IM871A
         /// <param name="onData">the action to be triggered.</param>
         public void AddReceiver(Func<HciMessage, Task> onData)
         {
+            _logger.LogTrace("Adding new delegate {onData} for receiving messages sent from device", $"{onData.Method.DeclaringType}::{onData.Method.Name}");
             _onData += onData ?? throw new ArgumentNullException(nameof(onData));
         }
 
@@ -80,6 +81,8 @@ namespace FosterBuster.IM871A
             return TransmitMessageInternalAsync(message);
         }
 
+#nullable enable
+
         private async Task TransmitMessageInternalAsync(HciMessage message)
         {
             // todo should controlfield be hardcoded?
@@ -90,7 +93,7 @@ namespace FosterBuster.IM871A
 
             var bytes = new List<byte>() { combinedControlFieldAndEndPointId, message.MessageIdentifier };
 
-            IList<byte> payload = message.Payload;
+            IList<byte>? payload = message.Payload;
 
             if (payload?.Count > 0)
             {
@@ -105,8 +108,12 @@ namespace FosterBuster.IM871A
 
             bytes.AppendCrc();
             bytes.Insert(0, StartOfFrame);
+
+            _logger.LogTrace("Marshalled {message} into {bytes}. Transmitting...", message, bytes.ToHexString());
             await _serialConnection.BaseStream.WriteAsync(bytes.ToArray(), 0, bytes.Count);
         }
+
+#nullable disable
 
         private void OnSerialDataAvailable(object sender, SerialDataReceivedEventArgs e)
         {
