@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
 	<RootNamespace>FosterBuster.IM871A</RootNamespace>
      <Authors>Poul Erik Venø Hansen</Authors>
      <PackageId>FosterBuster.IM871A</PackageId>
@@ -13,6 +13,7 @@
      <PackageProjectUrl>https://github.com/fosterbuster/iM871A-USB</PackageProjectUrl>
      <RepositoryUrl>https://github.com/fosterbuster/iM871A-USB</RepositoryUrl>
      <Copyright>Poul Erik Venø Hansen</Copyright>
+     <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>

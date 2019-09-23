@@ -21,9 +21,6 @@ namespace FosterBuster.IM871A
     /// </summary>
     public class IM871ADongle
     {
-        
-
-
         private const byte StartOfFrame = 0xA5;
 
         private readonly ILogger<IM871ADongle> _logger;
@@ -168,11 +165,18 @@ namespace FosterBuster.IM871A
                 {
                     var valid = receivedBytes.ValidateCrc();
 
-                    if (!valid)
+                    if (valid)
+                    {
+                        // Strip CRC16 Checksum if the received bytes are correct.
+                        receivedBytes = receivedBytes[..^2];
+                    }
+                    else
                     {
                         throw new InvalidDataException("Wrong CRC16 checksum");
                     }
                 }
+
+                // TODO handle RSSI and timestamps (maybe pass it in through the create factory?)
 
                 // Strip controlfield bits.
                 receivedBytes[0] = receivedBytes[0].GetLowNibble();

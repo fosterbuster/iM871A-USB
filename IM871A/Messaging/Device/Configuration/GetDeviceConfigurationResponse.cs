@@ -291,19 +291,18 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
                 return null;
             }
 
-            switch (val)
+            return val switch
             {
-                case 0: return -8;
-                case 1: return -5;
-                case 2: return -2;
-                case 3: return 1;
-                case 4: return 4;
-                case 5: return 7;
-                case 6: return 10;
-                case 7: return 14;
-                default:
-                    return null;
-            }
+                0 => -8,
+                1 => -5,
+                2 => -2,
+                3 => 1,
+                4 => 4,
+                5 => 7,
+                6 => 10,
+                7 => 14,
+                _ => throw new Exception("Unknown Radio Power Level"),
+            };
         }
 
         public override string ToString()

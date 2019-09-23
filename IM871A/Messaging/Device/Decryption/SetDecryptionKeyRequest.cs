@@ -17,12 +17,12 @@ namespace FosterBuster.IM871A.Messaging.Device.Decryption
         /// <summary>
         /// Initializes a new instance of the <see cref="SetDecryptionKeyRequest"/> class.
         /// </summary>
-        /// <param name="index">Index to insert the decryptionkey at. Valid values 0-15</param>
+        /// <param name="index">Index to insert the decryptionkey at. Valid values 0-15.</param>
         /// <param name="manufacturerId">the mbus manufacturer id.</param>
         /// <param name="deviceId">the mbus device id.</param>
         /// <param name="versionId">the mbus version id.</param>
         /// <param name="deviceType">the mbus device-type.</param>
-        /// <param name="decryptionKey">the AES-128 bit decryption key</param>
+        /// <param name="decryptionKey">the AES-128 bit decryption key.</param>
         public SetDecryptionKeyRequest(int index, byte[] manufacturerId, byte[] deviceId, byte versionId, byte deviceType, byte[] decryptionKey)
             : base(DeviceManagementMessageIdentifier.SetAesDecryptionKeyRequest, new List<byte>())
         {
