@@ -14,7 +14,7 @@ namespace FosterBuster.IM871A.Messaging.Device
         /// Initializes a new instance of the <see cref="GetSystemStatusRequest"/> class.
         /// </summary>
         public GetSystemStatusRequest()
-            : base(DeviceManagementMessageIdentifier.GetSystemStatusRequest, null)
+            : base(DeviceManagementMessageIdentifier.GetSystemStatusRequest, new byte[0])
         {
         }
 

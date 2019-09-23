@@ -14,7 +14,7 @@ namespace FosterBuster.IM871A.Messaging.Device.OperationMode
         /// Initializes a new instance of the <see cref="GetOperationModeRequest"/> class.
         /// </summary>
         public GetOperationModeRequest()
-            : base(DeviceManagementMessageIdentifier.GetOperationModeRequest, null)
+            : base(DeviceManagementMessageIdentifier.GetOperationModeRequest, new byte[0])
         {
         }
 

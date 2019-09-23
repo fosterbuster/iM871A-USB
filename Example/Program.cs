@@ -11,8 +11,10 @@ namespace Example
 {
     internal class Program
     {
+#pragma warning disable IDE0060
         internal static async Task Main(string[] args)
         {
+#pragma warning restore IDE0060
             ServiceProvider serviceCollection = new ServiceCollection().AddIM871ADongle(x =>
             {
                 x.PortName = "COM4";

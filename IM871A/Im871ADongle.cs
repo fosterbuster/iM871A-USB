@@ -26,7 +26,7 @@ namespace FosterBuster.IM871A
         private readonly ILogger<IM871ADongle> _logger;
         private readonly SerialPort _serialConnection;
 
-        private Func<HciMessage, Task> _onData;
+        private Func<HciMessage, Task>? _onData;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IM871ADongle"/> class.
@@ -57,8 +57,8 @@ namespace FosterBuster.IM871A
         /// <param name="onData">the action to be triggered.</param>
         public void AddReceiver(Func<HciMessage, Task> onData)
         {
-            _logger.LogTrace("Adding new delegate {onData} for receiving messages sent from device", $"{onData.Method.DeclaringType}::{onData.Method.Name}");
             _onData += onData ?? throw new ArgumentNullException(nameof(onData));
+            _logger.LogTrace("Added new delegate {onData} for receiving messages sent from device", $"{onData.Method.DeclaringType}::{onData.Method.Name}");
         }
 
         /// <summary>
@@ -68,11 +68,6 @@ namespace FosterBuster.IM871A
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task TransmitMessage(HciMessage message)
         {
-            if (message is null)
-            {
-                throw new ArgumentNullException(nameof(message));
-            }
-
             if (!(message is ITransmittable))
             {
                 throw new ArgumentException($"{message} not marked as {nameof(ITransmittable)}");
@@ -80,8 +75,6 @@ namespace FosterBuster.IM871A
 
             return TransmitMessageInternalAsync(message);
         }
-
-#nullable enable
 
         private async Task TransmitMessageInternalAsync(HciMessage message)
         {
@@ -112,8 +105,6 @@ namespace FosterBuster.IM871A
             _logger.LogTrace("Marshalled {message} into {bytes}. Transmitting...", message, bytes.ToHexString());
             await _serialConnection.BaseStream.WriteAsync(bytes.ToArray(), 0, bytes.Count);
         }
-
-#nullable disable
 
         private void OnSerialDataAvailable(object sender, SerialDataReceivedEventArgs e)
         {
@@ -187,6 +178,11 @@ namespace FosterBuster.IM871A
 
                 // Strip controlfield bits.
                 receivedBytes[0] = receivedBytes[0].GetLowNibble();
+                if (_onData is null)
+                {
+                    _logger.LogWarning("No receivers have been added. Consider calling AddReceiver. Discarding message.");
+                    return;
+                }
 
                 await _onData((HciMessage)ReceivableMessageFactory.Create(receivedBytes));
             }

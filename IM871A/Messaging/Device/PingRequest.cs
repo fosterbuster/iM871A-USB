@@ -14,7 +14,7 @@ namespace FosterBuster.IM871A.Messaging.Device
         /// Initializes a new instance of the <see cref="PingRequest"/> class.
         /// </summary>
         public PingRequest()
-            : base(DeviceManagementMessageIdentifier.PingRequest, null)
+            : base(DeviceManagementMessageIdentifier.PingRequest, new byte[0])
         {
         }
 

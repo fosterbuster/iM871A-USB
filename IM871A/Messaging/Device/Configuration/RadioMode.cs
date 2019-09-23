@@ -44,12 +44,13 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
         R2 = 0x05,
 
         /// <summary>
-        /// Frame format A. Transmit only, on a regular basis, with short data bursts < 22 ms, operates in the 0,1 % duty cycle frequency band.
+        /// <para>Frame format A. Transmit only, on a regular basis, with short data bursts</para> < 22 ms, operates in the 0,1 % duty cycle frequency band.
         /// </summary>
         C1FormatA = 0x06,
 
         /// <summary>
-        /// Frame format B. Transmit only, on a regular basis, with short data bursts < 22 ms, operates in the 0,1 % duty cycle frequency band.
+        /// <para><para>Frame format B.</para></para>
+        /// <para><para>Transmit only, on a regular basis, with short data bursts</para> < 22 ms, operates in the 0,1 % duty cycle frequency band.</para>
         /// </summary>
         C1FormatB = 0x07,
 

@@ -13,7 +13,9 @@
      <PackageProjectUrl>https://github.com/fosterbuster/iM871A-USB</PackageProjectUrl>
      <RepositoryUrl>https://github.com/fosterbuster/iM871A-USB</RepositoryUrl>
      <Copyright>Poul Erik Venø Hansen</Copyright>
-     <LangVersion>preview</LangVersion>
+     <LangVersion>8.0</LangVersion>
+     <Nullable>enable</Nullable>
+
   </PropertyGroup>
 
   <PropertyGroup>
@@ -42,6 +44,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="FosterBuster.Extensions" Version="1.0.2.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />

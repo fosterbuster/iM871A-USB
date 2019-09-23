@@ -25,12 +25,17 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
         private int _radioChannelIndex = -1;
 
         private int _radioPowerLevelIndex = -1;
-        private int _radioDataRateIndex = -1;
+#pragma warning disable IDE0052 // Remove unread private members
+#pragma warning disable S1450 // Private fields only used as local variables in methods should become local variables
+        private int _radioDataRateIndex = -1; // Unused by protocol.
+        private int _ledControlIndex = -1; // Not implemented.
+#pragma warning restore S1450 // Private fields only used as local variables in methods should become local variables
+#pragma warning restore IDE0052 // Remove unread private members
         private int _radioRxWindowIndex = -1;
         private int _autoPowerSavingIndex = -1;
         private int _autoRssiAttachmentIndex = -1;
         private int _autoRxTimestampAttachmentIndex = -1;
-        private int _ledControlIndex = -1;
+
         private int _rtcControlIndex = -1;
 
         /// <summary>
@@ -42,7 +47,7 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
         {
             if (payload.Length > 0)
             {
-                CalculateIndexes();
+                CalcuateIndices();
             }
         }
 
@@ -95,7 +100,7 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
         /// Gets the Reception Window [ms] after Transmit.
         /// </summary>
         /// <remarks>
-        /// The module will listen for radio messages for the given time before it enters a power saving state.This parameter is useful especially for battery powered devices (Meters) which are configured for bidirectional Radio communication (S2, T2, R2, C2, N2x).
+        /// <para>The module will listen for radio messages for the given time before it enters a power saving state.This parameter is useful especially for battery powered devices (Meters) which are configured for bidirectional Radio communication (S2, T2, R2, C2, N2x).</para>
         /// </remarks>
         public TimeSpan? RadioReceiveWindow => GetRadioRxWindow();
 
@@ -103,7 +108,7 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
         /// Gets a value indicating whether or not the device has automatic power saving enabled.
         /// </summary>
         /// <remarks>
-        /// If true device enters power saving mode after message transmission(S1, S1-m, T1, C1, N1x), reception or when the Radio Rx-Window terminates(S2, T2, R2, C2, N2x).
+        /// <para>If true device enters power saving mode after message transmission(S1, S1-m, T1, C1, N1x), reception or when the Radio Rx-Window terminates(S2, T2, R2, C2, N2x).</para>
         /// </remarks>
         public bool? AutomaticPowerSaving => GetBoolOrNull(_autoPowerSavingIndex);
 
@@ -124,6 +129,7 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
         /// </summary>
         public bool? RtcControl => GetBoolOrNull(_rtcControlIndex);
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return $"{{{nameof(DeviceMode)}={DeviceMode}, {nameof(RadioMode)}={RadioMode}, {nameof(WmBusCField)}={WmBusCField}, {nameof(WmBusManufacturerId)}={WmBusManufacturerId}, {nameof(WmBusDeviceId)}={WmBusDeviceId}, {nameof(WmBusVersion)}={WmBusVersion}, {nameof(WmBusDeviceType)}={WmBusDeviceType}, {nameof(RadioChannel)}={RadioChannel}, {nameof(RadioPowerLevel)}={RadioPowerLevel}, {nameof(RadioReceiveWindow)}={RadioReceiveWindow}, {nameof(AutomaticPowerSaving)}={AutomaticPowerSaving}, {nameof(AutomaticRssiAttachment)}={AutomaticRssiAttachment}, {nameof(AutoReceiveTimestampAttachment)}={AutoReceiveTimestampAttachment}, {nameof(RtcControl)}={RtcControl}, {nameof(MessageIdentifier)}={MessageIdentifier}, {nameof(EndpointIdentifier)}={EndpointIdentifier}, {nameof(Payload)}={Payload}, {nameof(MessageIdentifier)}={MessageIdentifier}}}";
@@ -153,7 +159,7 @@ namespace FosterBuster.IM871A.Messaging.Device.Configuration
             return null;
         }
 
-        private void CalculateIndexes()
+        private void CalcuateIndices()
         {
             var cursor = 4;
             var iiflag1 = Payload[3];
