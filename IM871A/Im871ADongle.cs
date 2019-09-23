@@ -21,6 +21,9 @@ namespace FosterBuster.IM871A
     /// </summary>
     public class IM871ADongle
     {
+        
+
+
         private const byte StartOfFrame = 0xA5;
 
         private readonly ILogger<IM871ADongle> _logger;
@@ -55,9 +58,9 @@ namespace FosterBuster.IM871A
         /// Set the action to be triggered, when new data is available.
         /// </summary>
         /// <param name="onData">the action to be triggered.</param>
-        public void SetReceiver(Func<HciMessage, Task> onData)
+        public void AddReceiver(Func<HciMessage, Task> onData)
         {
-            _onData = onData ?? throw new ArgumentNullException(nameof(onData));
+            _onData += onData ?? throw new ArgumentNullException(nameof(onData));
         }
 
         /// <summary>
@@ -67,6 +70,11 @@ namespace FosterBuster.IM871A
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task TransmitMessage(HciMessage message)
         {
+            if (message is null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
             if (!(message is ITransmittable))
             {
                 throw new ArgumentException($"{message} not marked as {nameof(ITransmittable)}");
@@ -77,23 +85,29 @@ namespace FosterBuster.IM871A
 
         private async Task TransmitMessageInternalAsync(HciMessage message)
         {
-            // TODO: give CRC16? Already have the calculations available through stuff made for the Iu880B.
-            byte controlField = 0b0000_0000;
+            // todo should controlfield be hardcoded?
+            byte controlField = 0b1000;
             var endpointId = (byte)message.EndpointIdentifier;
 
             var combinedControlFieldAndEndPointId = (byte)((controlField << 4) | endpointId);
 
-            var bytes = new List<byte>() { StartOfFrame, combinedControlFieldAndEndPointId, message.MessageIdentifier };
+            var bytes = new List<byte>() { combinedControlFieldAndEndPointId, message.MessageIdentifier };
 
             IList<byte> payload = message.Payload;
 
-            if (payload.Count > 0)
+            if (payload?.Count > 0)
             {
                 var length = checked((byte)payload.Count);
                 bytes.Add(length);
                 bytes.AddRange(payload);
             }
+            else
+            {
+                bytes.Add(0x00);
+            }
 
+            bytes.AppendCrc();
+            bytes.Insert(0, StartOfFrame);
             await _serialConnection.BaseStream.WriteAsync(bytes.ToArray(), 0, bytes.Count);
         }
 
@@ -107,50 +121,63 @@ namespace FosterBuster.IM871A
             Stream stream = _serialConnection.BaseStream;
 
             var buffer = new byte[512];
+
+            // Skip frame start.
+            var frameStart = stream.ReadByte();
+
+            if (frameStart != StartOfFrame)
+            {
+                throw new InvalidDataException("Expected start of frame.");
+            }
+
             var readBytesCount = await stream.ReadAsync(buffer, 0, 3);
 
             if (readBytesCount > 0)
             {
                 var controlField = buffer[0].GetHighNibble();
-                var endpointId = buffer[0].GetLowNibble();
+                var length = buffer[2];
 
-                var messageId = buffer[1];
-                var lengthField = buffer[2];
-                var payload = new byte[2];
+                var timestampPresent = controlField.GetBit(1);
+                var rssiPresent = controlField.GetBit(2);
+                var crcPresent = controlField.GetBit(3);
 
-                if (lengthField > 0)
+                if (timestampPresent)
                 {
-                    var readLength = lengthField;
-                    var timestampPresent = controlField.GetBit(2);
-                    var rssiPresent = controlField.GetBit(3);
-                    var crcPresent = controlField.GetBit(4);
-                    if (timestampPresent)
-                    {
-                        readLength += 4; // 32bit
-                    }
-
-                    if (rssiPresent)
-                    {
-                        readLength += 1; // 8bit
-                    }
-
-                    if (crcPresent)
-                    {
-                        readLength += 2; // 16bit
-                    }
-
-                    await stream.ReadAsync(buffer, 0, readLength);
-
-                    // TODO: Handle optional fields
-                    payload = new byte[lengthField + 2];
-                    Buffer.BlockCopy(buffer, 3, payload, 2, lengthField);
+                    length += 4; // 32bit
                 }
 
-                //FIXME: remove cast when getting updated extensions
-                payload[0] = (byte)endpointId;
-                payload[1] = messageId;
+                if (rssiPresent)
+                {
+                    length += 1; // 8bit
+                }
 
-                await _onData((HciMessage)ReceivableMessageFactory.Create(payload));
+                if (crcPresent)
+                {
+                    length += 2; // 16bit
+                }
+
+                if (length > 0)
+                {
+                    readBytesCount += await stream.ReadAsync(buffer, 3, length);
+                }
+
+                var receivedBytes = new byte[readBytesCount];
+                Buffer.BlockCopy(buffer, 0, receivedBytes, 0, readBytesCount);
+
+                if (crcPresent)
+                {
+                    var valid = receivedBytes.ValidateCrc();
+
+                    if (!valid)
+                    {
+                        throw new InvalidDataException("Wrong CRC16 checksum");
+                    }
+                }
+
+                // Strip controlfield bits.
+                receivedBytes[0] = receivedBytes[0].GetLowNibble();
+
+                await _onData((HciMessage)ReceivableMessageFactory.Create(receivedBytes));
             }
         }
     }

@@ -4,6 +4,7 @@
 // </copyright>
 
 using System.Linq;
+using FosterBuster.Extensions;
 
 namespace FosterBuster.IM871A.Messaging.Radio
 {
@@ -31,12 +32,12 @@ namespace FosterBuster.IM871A.Messaging.Radio
         /// <inheritdoc/>
         public override string ToString()
         {
-            return "WMBus Message Indication Response.";
+            return $"WMBus Message Indication: {WMBusPayload.ToHexString()}";
         }
 
         private byte[] GetWMBusPayload()
         {
-            return Payload.Skip(2).ToArray();
+            return Payload.Skip(3).ToArray();
         }
     }
 }
