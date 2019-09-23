@@ -75,7 +75,7 @@ namespace FosterBuster.IM871A.Messaging.Device
         // FIXME: wrong value. Might be skipping too little or too much.
         public int ReceivedFramesDecodeErrorCount => BitConverter.ToInt32(Payload.Skip(33).Take(4).ToArray(), 0);
 
-        ///// <inheritdoc/>
+        /// <inheritdoc/>
         public override string ToString()
         {
             return $"Get System Status Response. {{{nameof(ConfigurationDataIsConfigured)}={ConfigurationDataIsConfigured}, {nameof(ProductionDataIsConfigured)}={ProductionDataIsConfigured}, {nameof(AesDataIsCorrupt)}={AesDataIsCorrupt}, {nameof(FileSystemIsCorrupt)}={FileSystemIsCorrupt}, {nameof(SystemTicks)}={SystemTicks}, {nameof(TransmittedFramesCount)}={TransmittedFramesCount}, {nameof(TransmittedFramesErrorCount)}={TransmittedFramesErrorCount}, {nameof(ReceivedFramesCount)}={ReceivedFramesCount}, {nameof(ReceivedFramesCrcErrorCount)}={ReceivedFramesCrcErrorCount}, {nameof(ReceivedFramesDecodeErrorCount)}={ReceivedFramesDecodeErrorCount}, {nameof(MessageIdentifier)}={MessageIdentifier}, {nameof(EndpointIdentifier)}={EndpointIdentifier}, {nameof(Payload)}={Payload}, {nameof(MessageIdentifier)}={MessageIdentifier}}}";

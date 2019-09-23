@@ -3,8 +3,6 @@
 // Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
 
-using System.Collections.Generic;
-
 namespace FosterBuster.IM871A.Messaging.Device.Configuration
 {
     /// <summary>

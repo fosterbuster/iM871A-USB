@@ -14,7 +14,7 @@ namespace FosterBuster.IM871A.Messaging.Device.Information
         /// Initializes a new instance of the <see cref="GetDeviceInformationRequest"/> class.
         /// </summary>
         public GetDeviceInformationRequest()
-            : base(DeviceManagementMessageIdentifier.GetDeviceInformationRequest, null)
+            : base(DeviceManagementMessageIdentifier.GetDeviceInformationRequest, new byte[0])
         {
         }
 

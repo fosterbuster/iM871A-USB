@@ -14,7 +14,7 @@ namespace FosterBuster.IM871A.Messaging.Device
         /// Initializes a new instance of the <see cref="ResetRequest"/> class.
         /// </summary>
         public ResetRequest()
-            : base(DeviceManagementMessageIdentifier.ResetRequest, null)
+            : base(DeviceManagementMessageIdentifier.ResetRequest, new byte[0])
         {
         }
 

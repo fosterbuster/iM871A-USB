@@ -3,6 +3,8 @@
 // Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
 
+using System.Collections.Generic;
+
 namespace FosterBuster.IM871A.Messaging.Device.Encryption
 {
     /// <summary>
@@ -16,7 +18,7 @@ namespace FosterBuster.IM871A.Messaging.Device.Encryption
         /// <param name="saveToMemory">A value indicating whether to change configuration only temporary or save configuration also in NVM.</param>
         /// <param name="enableAesEncryption">A value indicating whether to enable or disable AES128 encryption.</param>
         public ToggleAesEncryptionRequest(bool saveToMemory, bool enableAesEncryption)
-            : base(DeviceManagementMessageIdentifier.EnableAesEncryptionKeyRequest, null)
+            : base(DeviceManagementMessageIdentifier.EnableAesEncryptionKeyRequest, new List<byte>())
         {
             Payload.Add(saveToMemory ? (byte)0x01 : (byte)0x00);
             Payload.Add(enableAesEncryption ? (byte)0x01 : (byte)0x00);

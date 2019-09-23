@@ -3,7 +3,6 @@
 // Licensed under the GNU Affero General Public License v3.0 license. See LICENSE file in the project root for full license information.
 // </copyright>
 
-using System;
 using System.Linq;
 
 namespace FosterBuster.IM871A.Messaging.Device.Decryption

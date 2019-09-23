@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
 	<RootNamespace>FosterBuster.IM871A</RootNamespace>
      <Authors>Poul Erik Venø Hansen</Authors>
      <PackageId>FosterBuster.IM871A</PackageId>
@@ -13,6 +13,9 @@
      <PackageProjectUrl>https://github.com/fosterbuster/iM871A-USB</PackageProjectUrl>
      <RepositoryUrl>https://github.com/fosterbuster/iM871A-USB</RepositoryUrl>
      <Copyright>Poul Erik Venø Hansen</Copyright>
+     <LangVersion>8.0</LangVersion>
+     <Nullable>enable</Nullable>
+
   </PropertyGroup>
 
   <PropertyGroup>
@@ -41,6 +44,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="FosterBuster.Extensions" Version="1.0.2.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />

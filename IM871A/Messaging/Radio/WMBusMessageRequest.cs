@@ -16,7 +16,6 @@ namespace FosterBuster.IM871A.Messaging.Radio
     /// </summary>
     public class WMBusMessageRequest : RadioLinkMessage, ITransmittable
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WMBusMessageRequest"/> class.
         /// </summary>

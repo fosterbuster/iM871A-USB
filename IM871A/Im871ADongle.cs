@@ -21,15 +21,12 @@ namespace FosterBuster.IM871A
     /// </summary>
     public class IM871ADongle
     {
-        
-
-
         private const byte StartOfFrame = 0xA5;
 
         private readonly ILogger<IM871ADongle> _logger;
         private readonly SerialPort _serialConnection;
 
-        private Func<HciMessage, Task> _onData;
+        private Func<HciMessage, Task>? _onData;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IM871ADongle"/> class.
@@ -61,6 +58,7 @@ namespace FosterBuster.IM871A
         public void AddReceiver(Func<HciMessage, Task> onData)
         {
             _onData += onData ?? throw new ArgumentNullException(nameof(onData));
+            _logger.LogTrace("Added new delegate {onData} for receiving messages sent from device", $"{onData.Method.DeclaringType}::{onData.Method.Name}");
         }
 
         /// <summary>
@@ -70,11 +68,6 @@ namespace FosterBuster.IM871A
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task TransmitMessage(HciMessage message)
         {
-            if (message is null)
-            {
-                throw new ArgumentNullException(nameof(message));
-            }
-
             if (!(message is ITransmittable))
             {
                 throw new ArgumentException($"{message} not marked as {nameof(ITransmittable)}");
@@ -93,7 +86,7 @@ namespace FosterBuster.IM871A
 
             var bytes = new List<byte>() { combinedControlFieldAndEndPointId, message.MessageIdentifier };
 
-            IList<byte> payload = message.Payload;
+            IList<byte>? payload = message.Payload;
 
             if (payload?.Count > 0)
             {
@@ -108,6 +101,8 @@ namespace FosterBuster.IM871A
 
             bytes.AppendCrc();
             bytes.Insert(0, StartOfFrame);
+
+            _logger.LogTrace("Marshalled {message} into {bytes}. Transmitting...", message, bytes.ToHexString());
             await _serialConnection.BaseStream.WriteAsync(bytes.ToArray(), 0, bytes.Count);
         }
 
@@ -168,14 +163,27 @@ namespace FosterBuster.IM871A
                 {
                     var valid = receivedBytes.ValidateCrc();
 
-                    if (!valid)
+                    if (valid)
+                    {
+                        // Strip CRC16 Checksum if the received bytes are correct.
+                        receivedBytes = receivedBytes[..^2];
+                    }
+                    else
                     {
                         throw new InvalidDataException("Wrong CRC16 checksum");
                     }
                 }
 
+                // TODO handle RSSI and timestamps (maybe pass it in through the create factory?)
+
                 // Strip controlfield bits.
                 receivedBytes[0] = receivedBytes[0].GetLowNibble();
+
+                if (_onData is null)
+                {
+                    _logger.LogWarning("No receivers have been added. Consider calling AddReceiver. Discarding message.");
+                    return;
+                }
 
                 await _onData((HciMessage)ReceivableMessageFactory.Create(receivedBytes));
             }

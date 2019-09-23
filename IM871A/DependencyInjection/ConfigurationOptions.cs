@@ -13,7 +13,7 @@ namespace FosterBuster.IM871A.DependencyInjection
         /// <summary>
         /// Gets or sets the name of the serial port.
         /// </summary>
-        public string PortName { get; set; }
+        public string? PortName { get; set; }
 
         /// <summary>
         /// Gets or sets the baud rate of the serial port.
