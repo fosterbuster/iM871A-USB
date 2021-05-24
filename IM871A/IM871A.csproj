@@ -1,57 +1,48 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-	<RootNamespace>FosterBuster.IM871A</RootNamespace>
-     <Authors>Poul Erik Venø Hansen</Authors>
-     <PackageId>FosterBuster.IM871A</PackageId>
-     <Title>IM871A-USB</Title>
-     <Description>.NET Library for communicating with the WiMOD iM871A USB (and the chip) WMBus dongle.</Description>
-     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-     <Version>1.0.0.0</Version>
-     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-     <PackageProjectUrl>https://github.com/fosterbuster/iM871A-USB</PackageProjectUrl>
-     <RepositoryUrl>https://github.com/fosterbuster/iM871A-USB</RepositoryUrl>
-     <Copyright>Poul Erik Venø Hansen</Copyright>
-     <LangVersion>8.0</LangVersion>
-     <Nullable>enable</Nullable>
-
+    <RootNamespace>FosterBuster.IM871A</RootNamespace>
+    <Authors>Poul Erik Venø Hansen</Authors>
+    <PackageId>FosterBuster.IM871A</PackageId>
+    <Title>IM871A-USB</Title>
+    <Description>.NET Library for communicating with the WiMOD iM871A USB (and the chip) WMBus dongle.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0.0</Version>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/fosterbuster/iM871A-USB</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/fosterbuster/iM871A-USB</RepositoryUrl>
+    <Copyright>Poul Erik Venø Hansen</Copyright>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <PropertyGroup>
-     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
-
-  <ItemGroup>
-     <None Include="..\LICENSE" Pack="true" PackagePath="" />
-  </ItemGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <CodeAnalysisRuleSet>pevh.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CodeAnalysisRuleSet>pevh.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile/>
   </PropertyGroup>
-
   <ItemGroup>
-    <None Remove="stylecop.json" />
+    <None Include="..\LICENSE" Pack="true" PackagePath=""/>
   </ItemGroup>
-
   <ItemGroup>
-    <AdditionalFiles Include="stylecop.json" />
+    <None Remove="stylecop.json"/>
   </ItemGroup>
-
+  <ItemGroup>
+    <AdditionalFiles Include="stylecop.json"/>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FosterBuster.Extensions" Version="1.0.2.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
+    <PackageReference Include="FosterBuster.Extensions" Version="1.0.2.1"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1"/>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0"/>
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0"/>
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.16.0.8981">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -60,8 +51,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.IO.Ports" Version="4.5.0" />
-    <PackageReference Include="System.Management" Version="4.5.0" />
+    <PackageReference Include="System.IO.Ports" Version="5.0.1"/>
+    <PackageReference Include="System.Management" Version="4.5.0"/>
   </ItemGroup>
-
 </Project>
