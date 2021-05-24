@@ -117,12 +117,13 @@ namespace FosterBuster.IM871A
 
             var buffer = new byte[512];
 
-            // Skip frame start.
-            var frameStart = stream.ReadByte();
+           // Skip frame start.
+           var frameStart = stream.ReadByte();
 
             if (frameStart != StartOfFrame)
             {
-                throw new InvalidDataException("Expected start of frame.");
+                _logger.LogWarning("Invalid packet start received. Expected start of frame.");
+                return;
             }
 
             var readBytesCount = await stream.ReadAsync(buffer, 0, 3);
