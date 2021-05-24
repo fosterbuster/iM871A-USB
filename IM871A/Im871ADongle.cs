@@ -171,7 +171,8 @@ namespace FosterBuster.IM871A
                     }
                     else
                     {
-                        throw new InvalidDataException("Wrong CRC16 checksum");
+                        _logger.LogWarning("Wrong CRC16 checksum");
+                        return;
                     }
                 }
 
